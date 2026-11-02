@@ -1,0 +1,452 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Una Sorpresa Especial ✨</title>
+    <style>
+        :root {
+            --bg-dark: #0f0717;
+            --purple-main: #6b21a8;
+            --purple-light: #a855f7;
+            --purple-glow: #d8b4fe;
+            --accent-pink: #ec4899;
+            --accent-gold: #fbbf24;
+            --text-color: #f3e8ff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Fondo Animado de Estrellas y Nubes */
+        .sky-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+            background: radial-gradient(circle at center, #1e0933 0%, #09030d 100%);
+        }
+
+        .balloon {
+            position: absolute;
+            bottom: -150px;
+            opacity: 0.7;
+            animation: floatUp 15s infinite linear;
+            pointer-events: none;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.8;
+            }
+
+            90% {
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(-120vh) rotate(15deg);
+                opacity: 0;
+            }
+        }
+
+        /* Contenedor Principal de Tarjetas */
+        .main-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 500px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: rgba(25, 10, 40, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 24px;
+            padding: 30px 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(168, 85, 247, 0.2);
+            text-align: center;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(30px) scale(0.95);
+        }
+
+            .card.active {
+                position: relative;
+                opacity: 1;
+                pointer-events: auto;
+                transform: translateY(0) scale(1);
+            }
+
+        /* Contenido de la Tarjeta Intro */
+        .intro-title {
+            font-size: 1.8rem;
+            color: var(--purple-glow);
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+        }
+
+        .photo-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px auto;
+            border-radius: 50%;
+            padding: 5px;
+            background: linear-gradient(135deg, var(--purple-light), var(--accent-pink), var(--accent-gold));
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.4);
+        }
+
+            .photo-container img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 50%;
+                border: 3px solid var(--bg-dark);
+                display: block;
+            }
+
+        .intro-text {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #e9d5ff;
+            margin-bottom: 25px;
+        }
+
+        /* Botones */
+        .btn {
+            background: linear-gradient(135deg, var(--purple-main), var(--purple-light));
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+
+            .btn:hover {
+                transform: translateY(-2deg);
+                box-shadow: 0 6px 20px rgba(168, 85, 247, 0.6);
+            }
+
+            .btn:active {
+                transform: translateY(1deg);
+            }
+
+        /* Tarjeta Invitación */
+        .invitation-title {
+            font-size: 1.7rem;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
+        }
+
+        .buttons-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 25px;
+            min-height: 80px;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #10b981, #059669);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            z-index: 2;
+        }
+
+            .btn-yes:hover {
+                box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+            }
+
+        .btn-no {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+            position: absolute;
+            transition: all 0.15s ease-out;
+            z-index: 10;
+        }
+
+        /* Reproductor de Música */
+        .music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(25, 10, 40, 0.8);
+            border: 1px solid var(--purple-light);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Mensaje de Confirmación Final */
+        .success-message {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid #10b981;
+            border-radius: 16px;
+            color: #a7f3d0;
+            animation: fadeIn 0.5s ease-forward;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fondo de Pantalla -->
+    <div class="sky-container" id="sky"></div>
+
+    <!-- Botón de Música -->
+    <button class="music-control" id="musicBtn">
+        🎵 Reproducir Música
+    </button>
+
+    <!-- Wrapper Principal -->
+    <div class="main-wrapper">
+
+        <!-- PASO 1: INTRODUCCIÓN -->
+        <div class="card active" id="cardIntro">
+            <h1 class="intro-title">Para alguien muy especial ✨</h1>
+
+            <div class="photo-container">
+                <!-- Reemplaza "foto.jpg" por la ruta de tu foto con ella -->
+                <img src="foto.jpeg" alt="Nosotros juntos" id="userPhoto" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=500&auto=format&fit=crop'">
+            </div>
+
+            <p class="intro-text">
+                Hay personas que hacen que los momentos comunes se vuelvan inolvidables, 
+                pero hay personas que jamas dejar de estar en la mente y en el corazon.
+                Gracias por aun estar en mi vida y sobre todo, seguir aqui y por ello.
+                Hay algo único que me gustaría compartir contigo...
+            </p>
+
+            <button class="btn" onclick="nextCard()">Ver lo que preparé para ti ❤️</button>
+        </div>
+
+        <!-- PASO 2: INVITACIÓN FIG -->
+        <div class="card" id="cardInvite">
+            <h1 class="invitation-title">🎈 Festival Internacional del Globo 🎈</h1>
+
+            <p class="intro-text">
+                Quiero invitarte a vivir una experiencia increíble: ver juntos el cielo lleno de colores,
+                luces y globos aerostáticos. Sería genial compartir este momento especial con mis amigos pero sobre todo contigo.
+                Ya que tu presencia es indespensable para esta aventura.
+                Se que has de estar muy ocupada, con mucho que estudiar y lo que menos deseo es ser una molestia, pero 
+                me encantaría que me acompañaras a este evento tan especial.
+                <br><br>
+                ¿Aceptas acompañarme?
+            </p>
+
+            <div class="buttons-container" id="btnContainer">
+                <button class="btn btn-yes" id="yesBtn" onclick="acceptInvite()">¡Sí, me encantaría! ✨</button>
+                <button class="btn btn-no" id="noBtn">No</button>
+            </div>
+
+            <div class="success-message" id="successMsg">
+                <h3>¡Sabía que dirías que sí! 🎉🎈</h3>
+                <p style="margin-top: 10px; font-size: 0.95rem;">
+                    Prepara tus maletas y tu mejor sonrisa.
+                    Nos Vemos este Viernes 13 de Noviembre en el punto de encuentro que se dara proximamente.
+                    ¡Nos espera una experiencia mágica juntos!
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Canvas para Confeti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        // --- Generación de Globos Animados en el Fondo ---
+        const sky = document.getElementById('sky');
+        const colors = ['#8b5cf6', '#a855f7', '#ec4899', '#f59e0b', '#3b82f6'];
+
+        function createBalloon() {
+            const balloon = document.createElement('div');
+            balloon.className = 'balloon';
+
+            const size = Math.random() * 40 + 30;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            const left = Math.random() * 100;
+            const duration = Math.random() * 10 + 12;
+
+            balloon.innerHTML = `
+                <svg width="${size}" height="${size * 1.3}" viewBox="0 0 50 65">
+                    <path d="M 25 0 C 40 0, 50 15, 50 30 C 50 45, 30 55, 25 58 C 20 55, 0 45, 0 30 C 0 15, 10 0, 25 0 Z" fill="${color}"/>
+                    <polygon points="22,57 28,57 26,62 24,62" fill="${color}"/>
+                    <line x1="23" y1="62" x2="23" y2="65" stroke="#ffffff" stroke-width="1"/>
+                    <line x1="27" y1="62" x2="27" y2="65" stroke="#ffffff" stroke-width="1"/>
+                </svg>
+            `;
+
+            balloon.style.left = `${left}%`;
+            balloon.style.animationDuration = `${duration}s`;
+            sky.appendChild(balloon);
+
+            setTimeout(() => balloon.remove(), duration * 1000);
+        }
+
+        setInterval(createBalloon, 2000);
+        for(let i = 0; i < 5; i++) createBalloon();
+
+        // --- Transición de Pantallas ---
+        function nextCard() {
+            document.getElementById('cardIntro').classList.remove('active');
+            document.getElementById('cardInvite').classList.add('active');
+            initNoButton();
+        }
+
+        // --- Lógica del Botón "No" Imposible de Tocar ---
+        function initNoButton() {
+            const noBtn = document.getElementById('noBtn');
+            const container = document.getElementById('btnContainer');
+
+            // Posición inicial alineada a la derecha
+            noBtn.style.left = '60%';
+
+            function moveButton() {
+                const containerRect = container.getBoundingClientRect();
+                const btnRect = noBtn.getBoundingClientRect();
+
+                // Calcular posiciones máximas seguras dentro del contenedor
+                const maxX = containerRect.width - btnRect.width;
+                const maxY = containerRect.height - btnRect.height;
+
+                const randomX = Math.max(10, Math.floor(Math.random() * maxX));
+                const randomY = Math.max(-50, Math.floor(Math.random() * 100) - 25);
+
+                noBtn.style.left = `${randomX}px`;
+                noBtn.style.top = `${randomY}px`;
+            }
+
+            // Esquivar cursor o toque táctil
+            noBtn.addEventListener('mouseenter', moveButton);
+            noBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                moveButton();
+            });
+        }
+
+        // --- Acción al Aceptar Invitación ---
+        function acceptInvite() {
+            document.getElementById('btnContainer').style.display = 'none';
+            document.getElementById('successMsg').style.display = 'block';
+
+            // Efecto de Confeti
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 120,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#a855f7', '#ec4899', '#fbbf24', '#10b981']
+                });
+            }
+        }
+
+        // --- Audio de Fondo (Web Audio API Suave) ---
+        let audioCtx, oscillator, gainNode;
+        let isPlaying = false;
+        const musicBtn = document.getElementById('musicBtn');
+
+        function toggleMusic() {
+            if (!isPlaying) {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+
+                // Melodía suave ambiental
+                const notes = [261.63, 329.63, 392.00, 523.25]; // C, E, G, C
+                let noteIndex = 0;
+
+                function playNextNote() {
+                    if (!isPlaying) return;
+                    oscillator = audioCtx.createOscillator();
+                    gainNode = audioCtx.createGain();
+
+                    oscillator.type = 'sine';
+                    oscillator.frequency.value = notes[noteIndex % notes.length];
+
+                    gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 2.5);
+
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioCtx.destination);
+
+                    oscillator.start();
+                    oscillator.stop(audioCtx.currentTime + 2.5);
+
+                    noteIndex++;
+                    setTimeout(playNextNote, 1500);
+                }
+
+                isPlaying = true;
+                playNextNote();
+                musicBtn.textContent = '⏸️ Pausar Música';
+            } else {
+                isPlaying = false;
+                musicBtn.textContent = '🎵 Reproducir Música';
+            }
+        }
+
+        musicBtn.addEventListener('click', toggleMusic);
+    </script>
+</body>
+</html>
